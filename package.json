@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "real-estate-system",
   "version": "0.1.0",
   "private": true,
@@ -41,5 +42,27 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.8",
     "tailwindcss": "^3.4.10"
+=======
+  "name": "real-estate",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon api/index.js",
+    "start": "node api/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+>>>>>>> real-estate/main
   }
 }

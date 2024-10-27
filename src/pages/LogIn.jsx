@@ -1,22 +1,57 @@
 import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
 
 export default function LogIn() {
-  
-    const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
+  const [showPassword,setShowPassword]= useState(false);
+  const [error,setError]=useState(null);
+  const [loading,setLoading]=useState(false);
+  const navigate=useNavigate();
+  const[formData,SetFormData] =useState({
     email: "",
     password: "",
+
   });
-  const { email, password } = formData;
-  function onChange(e) {
-    setFormData((prevState) => ({
+  const{email,password} = formData ;
+  function onChange(e){
+    SetFormData((prevState)=> ({
       ...prevState,
-      [e.target.id]: e.target.value,
-    }));
-  }
+      [e.target.id]: e.target.value.trim(),
+
+    }))
+  };
+  const handleSubmit=async (e)=>{
+    e.preventDefault();
+    try { 
+    setLoading(true);
+    
+    if(!formData.email  || !formData.password){
+      return setError('Please fill out all fields');
+    }
+      const res= await fetch("http://localhost:3000/api/auth/login",{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ 
+          email: formData.email,
+          password: formData.password,
+        }),
+       });
+       const data=await res.json();
+       console.log(data);
+       if(data.success===false){
+        setLoading(false);
+        setError(data.message);
+        return;
+       }
+       setLoading(false);
+       setError(null);
+       navigate('/profile');
+      }catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+    };
  
   return (
     <section>
@@ -30,7 +65,7 @@ export default function LogIn() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form>
+         <form onSubmit={handleSubmit}> 
             <input
               type="email"
               id="email"
@@ -79,17 +114,14 @@ export default function LogIn() {
                 </Link>
               </p>
             </div>
-            <button
-              className="w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
-              type="submit"
-            >
-              Log in
-            </button>
+            <button disabled={loading} className="w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
+              type="submit">{loading ? 'Loading....':'Log In'}</button>
             <div className="flex items-center  my-4 before:border-t before:flex-1 before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
               <p className="text-center font-semibold mx-4">OR</p>
             </div>
             <OAuth />
           </form>
+          {error && <p className="text-red-500 mt-5">{error}</p>}
         </div>
       </div>
     </section>

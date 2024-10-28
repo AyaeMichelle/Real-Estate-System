@@ -2,12 +2,14 @@ import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { Link,useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import{useDispatch, useSelector} from 'react-redux';
+import { logInStart,logInSuccess,logInFailure } from "../redux/user/userSlice.js";
 
 export default function LogIn() {
   const [showPassword,setShowPassword]= useState(false);
-  const [error,setError]=useState(null);
-  const [loading,setLoading]=useState(false);
+  const {loading,error}=useSelector((state)=>state.user);
   const navigate=useNavigate();
+  const dispatch=useDispatch();
   const[formData,SetFormData] =useState({
     email: "",
     password: "",
@@ -24,11 +26,7 @@ export default function LogIn() {
   const handleSubmit=async (e)=>{
     e.preventDefault();
     try { 
-    setLoading(true);
-    
-    if(!formData.email  || !formData.password){
-      return setError('Please fill out all fields');
-    }
+    dispatch(logInStart());
       const res= await fetch("http://localhost:3000/api/auth/login",{
         method:'POST',
         headers:{'Content-Type':'application/json'},
@@ -40,16 +38,13 @@ export default function LogIn() {
        const data=await res.json();
        console.log(data);
        if(data.success===false){
-        setLoading(false);
-        setError(data.message);
+        dispatch(logInFailure(data.message));
         return;
        }
-       setLoading(false);
-       setError(null);
+      dispatch(logInSuccess(data));
        navigate('/profile');
       }catch (error) {
-      setLoading(false);
-      setError(error.message);
+      dispatch(logInFailure(error.message));
     }
     };
  

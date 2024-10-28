@@ -113,9 +113,9 @@ export default function SignUp() {
                 </div>
                 <OAuth /> 
           </form>
+          {error && <p className="text-red-500 mt-5">{error}</p>}
         </div>
       </div>
-      {error && <p className="text-red-500 mt-5">{error}</p>}
     </section>
   );
 }

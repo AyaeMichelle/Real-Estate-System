@@ -25,6 +25,9 @@ export default function LogIn() {
   };
   const handleSubmit=async (e)=>{
     e.preventDefault();
+    if(!formData.email || !formData.password){
+      return dispatch(logInFailure('Please fill all the fields'));
+    }
     try { 
     dispatch(logInStart());
       const res= await fetch("http://localhost:3000/api/auth/login",{

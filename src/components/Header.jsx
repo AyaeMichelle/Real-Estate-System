@@ -37,25 +37,25 @@ export default function Header() {
                 </div>
 
                 {/* Navigation Links Section */}
-                <div className="col-span-4 flex justify-start ml-20"> {/* Added margin-left */}
+                <div className="col-span-4 flex justify-start space-x-4 mr-3 ml-20"> {/* Added margin-left */}
                     <ul className="flex space-x-5">
                         <li
-                            className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent
-                                ${pathMatchRoute("/") && "text-gray-950 border-b-orange-400"}`}
+                            className={`cursor-pointer py-3 text-sm font-semibold  hover:text-orange-400 transition duration-300 text-gray-400 border-b-[3px] border-b-transparent
+                                ${pathMatchRoute("/") && "text-gray-950 border-b-orange-300"}`}
                             onClick={() => navigate("/")}
                         >
                             Home
                         </li>
                         <li
-                            className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent
-                                ${pathMatchRoute("/about") && "border-b-orange-400 text-gray-950"}`}
+                            className={`cursor-pointer py-3 text-sm font-semibold hover:text-orange-400 transition duration-300 text-gray-400 border-b-[3px] border-b-transparent
+                                ${pathMatchRoute("/about") && "border-b-orange-300 text-gray-950"}`}
                             onClick={() => navigate("/about")}
                         >
                             About
                         </li>
                         <li
-                            className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent
-                                ${pathMatchRoute("/listings") && "border-b-orange-400 text-gray-950"}`}
+                            className={`cursor-pointer py-3 text-sm font-semibold hover:text-orange-400 transition duration-300 text-gray-400 border-b-[3px] border-b-transparent
+                                ${pathMatchRoute("/listings") && "border-b-orange-300 text-gray-950"}`}
                             onClick={() => navigate("/listings")}
                         >
                             Listings
@@ -64,15 +64,16 @@ export default function Header() {
                 </div>
 
                 {/* Auth Buttons Section */}
-                <div className="col-span-2 flex justify-end space-x-4 mr-3"> {/* Added margin-right */}
+                <div className="col-span-2 flex justify-start space-x-4 mr-3"> {/* Added margin-right */}
                     <button
-                        className="text-sm font-semibold text-gray-400"
+                        className="text-sm font-semibold text-gray-400  hover:text-orange-400 transition duration-300"
                         onClick={() => navigate("/log-in")}
                     >
                         Log in
                     </button>
                     <button
-                        className="px-3 py-2 text-white bg-orange-400 rounded-full text-sm font-semibold"
+                        className="px-3 py-2 text-white
+                         bg-orange-400 rounded-lg text-sm font-semibold hover:bg-gray-600 hover:text-orange-400 border-transparent transition duration-300"
                         onClick={() => navigate("/sign-up")}
                     >
                         Sign up

@@ -1,7 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
+import { useSelector } from 'react-redux';
 
 export default function Header() {
+    const { currentUser } = useSelector((state) => state.user);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -72,11 +74,21 @@ export default function Header() {
                         Log in
                     </button>
                     <button
-                        className="px-3 py-2 text-white
-                         bg-orange-400 rounded-lg text-sm font-semibold hover:bg-gray-600 hover:text-orange-400 border-transparent transition duration-300"
-                        onClick={() => navigate("/sign-up")}
+                        className={`flex items-center px-3 py-2 rounded-lg text-sm font-semibold transition duration-300 ${
+                            currentUser
+                                ? "bg-transparent text-gray-700 hover:bg-gray-200"
+                                : "bg-orange-400 text-white hover:bg-gray-600 hover:text-orange-400"
+                        }`}
+                         onClick={() => navigate(currentUser ? "/profile" : "/sign-up")}
                     >
-                        Sign up
+                         {currentUser ? (
+                            <img
+                              className="rounded-full h-7 w-7 object-cover"
+                              src={currentUser.avatar}
+                              alt="profile"
+                             /> ) : (
+                                <span className="text-white hover:underline">Sign up</span>
+                            )}
                     </button>
                 </div>
             </header>

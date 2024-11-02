@@ -28,7 +28,7 @@ const res = await fetch('/api/auth/google',{
 });
 const data = await res.json();
 dispatch(logInSuccess(data));
-navigate('/');
+navigate('/profile');
 console.log(result);
 }catch(error){
 console.log("could not sign in with google",error);

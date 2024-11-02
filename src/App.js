@@ -8,6 +8,7 @@ import Listings from "./pages/Listings.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import LogIn from "./pages/LogIn.jsx";
 import About from "./pages/About.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
 
 function App() {
   return(
@@ -16,7 +17,9 @@ function App() {
         <Header/>
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path="/profile" element={<Profile/>} />
+          <Route element={<PrivateRoute/>}>
+           <Route path="/profile" element={<Profile/>} />
+          </Route>
           <Route path="/about" element={<About/>} />
           <Route path="/listings" element={<Listings/>} />
           <Route path="/forgot-password" element={<ForgotPassword/>} />
